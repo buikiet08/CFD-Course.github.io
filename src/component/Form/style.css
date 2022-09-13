@@ -1,0 +1,16 @@
+.form-container{
+    display:flex;
+    flex-direction:column;
+}
+.form-container label{
+    margin-top:20px;
+}
+.form-container label span{
+    min-width:140px;
+    font-size:20px;
+}
+
+.error{
+    font-size:8px;
+    color:red;
+}
