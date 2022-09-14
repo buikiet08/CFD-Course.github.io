@@ -1,16 +1,10 @@
-import React,{useState,useEffect} from 'react'
-import Api from '../services/api'
+import React from 'react'
 import CourseItem from '../component/Course'
+import useQuery from '../hooks/useQuery'
+import courseService from '../services/courseService'
 
 function Course() {
-    const [course,setCourse] = useState([])
-    useEffect(() => {
-        Api.get('/elearning/v4/courses')
-        .then(res => 
-            setCourse(res.data.data)    
-        )
-    }, [])
-    console.log(course)
+    const { data, loading, error } = useQuery(() => courseService.getList(), [])
     return (
         <main className="homepage" id="main">
             <section className="section-1">
@@ -26,16 +20,20 @@ function Course() {
                         <h2 className="main-title">ONLINE</h2>
                     </div>
                     <div className="list row">
-                        {course.map(item => (
-                            <CourseItem 
-                            key={item.id} 
-                            image={item.thumbnailUrl} 
-                            name={item.title} 
-                            description={item.short_description} 
-                            avatar={item.teacher.avatar}
-                            user={item.teacher.title}
-                            />
-                        ))}
+                        {loading ?
+                            <div style={{ width: '100%', paddingTop: 50 }}>
+                                <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Đang tải dữ liệu...</p>
+                            </div> :
+                            data.map(item => (
+                                <CourseItem
+                                    key={item.id}
+                                    image={item.thumbnailUrl}
+                                    name={item.title}
+                                    description={item.short_description}
+                                    avatar={item.teacher.avatar}
+                                    user={item.teacher.title}
+                                />
+                            ))}
                     </div>
                 </div>
             </section>

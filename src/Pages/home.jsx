@@ -1,8 +1,6 @@
 import React from 'react'
-import Api from '../services/api'
 
 function Home() {
-    
     
   return (
     <main className="homepage" id="main">
@@ -422,22 +420,22 @@ function Home() {
             </div>
             </div>
         </section>
-        {/* <section class="section-3">
-            <div class="container">
-                <div class="video">
+        <section className="section-3">
+            <div className="container">
+                <div className="video">
                     <iframe id="video-intro"
                         src="https://www.youtube-nocookie.com/embed/6t-MjBazs3o?controls=0&showinfo=0&rel=0&enablejsapi=1&version=3&playerapiid=ytplayer"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen allowscriptaccess="always"></iframe>
 
-                    <div class="video-src" data-src="video/CFD-video-intro.mp4"></div>
-                    <div class="play-btn btn-video-intro">
-                        <img src="img/play-video-btn.png" alt="">
+                    <div className="video-src" data-src="video/CFD-video-intro.mp4"></div>
+                    <div className="play-btn btn-video-intro">
+                        <img src="img/play-video-btn.png" alt=""/>
                     </div>
                 </div>
             </div>
-        </section> */}
+        </section>
         <section className="section-testimonial">
             <div className="container">
             <div className="textbox">
@@ -591,35 +589,7 @@ function Home() {
             </div>
             </div>
         </section>
-        <section className="section-gallery">
-            <div className="textbox">
-            <h2 className="main-title">Chúng ta là một team</h2>
-            </div>
-            <div className="list">
-            <img data-flickity-lazyload="img/img_team1.png" alt="" />
-            <img data-flickity-lazyload="img/img_team2.png" alt="" />
-            <img data-flickity-lazyload="img/img_team3.png" alt="" />
-            <img data-flickity-lazyload="img/img_team4.png" alt="" />
-            <img data-flickity-lazyload="img/img_team3.png" alt="" />
-            <img data-flickity-lazyload="img/img_team4.png" alt="" />
-            <img data-flickity-lazyload="img/img_team1.png" alt="" />
-            <img data-flickity-lazyload="img/img_team2.png" alt="" />
-            <img data-flickity-lazyload="img/img_team3.png" alt="" />
-            <img data-flickity-lazyload="img/img_team4.png" alt="" />
-            <img data-flickity-lazyload="img/img_team3.png" alt="" />
-            <div className="item carousel-cell">
-                <img data-flickity-lazyload="img/img_team4.png" alt="" />
-            </div>
-            </div>
-            <div className="controls">
-            <div className="btn_ctr prev" />
-            <span>Trượt qua</span>
-            <div className="timeline">
-                <div className="process" />
-            </div>
-            <div className="btn_ctr next" />
-            </div>
-        </section>
+        
         <section className="section-action">
             <div className="container">
             <h3>Bạn đã sẵn sàng trở thành chiến binh tiếp theo của Team CFD chưa?</h3>

@@ -1,16 +1,19 @@
 import React from 'react'
+import { generatePath, Link } from 'react-router-dom'
+import { COURSE_DETAIL } from '../../config/path'
 
-function CourseItem({image,name,description,avatar,user}) {
+function CourseItem({id,image,name,description,avatar,user, slug}) {
+    const path = generatePath(COURSE_DETAIL, {slug, id})
     return (
         <div className="col-md-4 course">
             <div className="wrap">
-                <a className="cover" href="#">
+                <Link className="cover" to={path}>
                     <img src={`${image}`} alt="" />
-                </a>
+                </Link>
                 <div className="info">
-                    <a className="name" href="#">
+                    <Link className="name" to={path}>
                         {name}
-                    </a>
+                    </Link>
                     <p className="des">
                         {description}
                     </p>

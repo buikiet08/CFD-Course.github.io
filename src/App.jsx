@@ -10,6 +10,9 @@ import Payment from './Pages/ca-nhan/payment'
 import MyProject from './Pages/ca-nhan/du-an'
 import MainLayout from './layout/MainLayout'
 import ProfileLayout from './layout/ProfileLayout'
+import CourseDetail from './Pages/[slug]'
+
+import {COURSE_DETAIL} from './config/path'
 
 function App() {
   return (
@@ -19,6 +22,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='/khoa-hoc' element={<Course />} />
           <Route path='/du-an' element={<Project />} />
+          <Route path={COURSE_DETAIL} element={<CourseDetail />} />
           <Route path='*' element={<Page404 />} />
           <Route path='/ca-nhan' element={<ProfileLayout />}>
               <Route index element={<Profile />} />
