@@ -12,27 +12,30 @@ import MainLayout from './layout/MainLayout'
 import ProfileLayout from './layout/ProfileLayout'
 import CourseDetail from './Pages/[slug]'
 
-import {COURSE_DETAIL} from './config/path'
+import { COURSE_DETAIL } from './config/path'
+import MainProvider from './context/MainContext'
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path='/khoa-hoc' element={<Course />} />
-          <Route path='/du-an' element={<Project />} />
-          <Route path={COURSE_DETAIL} element={<CourseDetail />} />
-          <Route path='*' element={<Page404 />} />
-          <Route path='/ca-nhan' element={<ProfileLayout />}>
+      <MainProvider>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path='/khoa-hoc' element={<Course />} />
+            <Route path='/du-an' element={<Project />} />
+            <Route path={COURSE_DETAIL} element={<CourseDetail />} />
+            <Route path='*' element={<Page404 />} />
+            <Route path='/ca-nhan' element={<ProfileLayout />}>
               <Route index element={<Profile />} />
               <Route path='/ca-nhan/du-an' element={<MyProject />} />
               <Route path='/ca-nhan/khoa-hoc' element={<MyCourse />} />
               <Route path='/ca-nhan/thanh-toan' element={<Payment />} />
               <Route path='/ca-nhan/coin' element={<Coin />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </MainProvider>
     </>
   )
 }

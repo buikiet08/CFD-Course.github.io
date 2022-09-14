@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useContext,useState } from 'react'
+import {MainContext} from '../../context/MainContext'
 
 function Footer() {
+    const {setData, data}  = useContext(MainContext)
+    
+
+    const handleClick =() => {
+        setData(!data)
+    }
   return (
     <footer id="footer">
+        <button onClick={handleClick}>LOGIN</button>
         <div className="container">
             <div className="row">
             <div className="col-md-5 left">
