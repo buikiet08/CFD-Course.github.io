@@ -3,6 +3,9 @@ import { MainContext } from '../../context/MainContext'
 
 function Header() {
     const {data, setData} = useContext(MainContext)
+    const handleClick = (e) => {
+        setData(data => { return {...data, status: false}; })
+    }
     return (
         <>
             <header id="header">
@@ -20,11 +23,11 @@ function Header() {
                         <h1>CFD</h1>
                     </a>
                     <div className="right">
-                        {data ? (
+                        {data.status ? (
                             <div className="have-login">
                                 <div className="account">
                                     <a href="#" className="info">
-                                        <div className="name">Trần Lê Trọng Nghĩa</div>
+                                        <div className="name">{data.name}</div>
                                         <div className="avatar">
                                             <img src="img/avt.png" alt="" />
                                         </div>
@@ -35,7 +38,7 @@ function Header() {
                                 <div className="sub">
                                     <a href="#">Khóa học của tôi</a>
                                     <a href="#">Thông tin tài khoản</a>
-                                    <a href="#">Đăng xuất</a>
+                                    <a href="#" onClick={handleClick}>Đăng xuất</a>
                                 </div>
                             </div>
                         ) : (
