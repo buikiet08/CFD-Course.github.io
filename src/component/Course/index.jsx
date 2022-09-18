@@ -2,7 +2,7 @@ import React from 'react'
 import { generatePath, Link } from 'react-router-dom'
 import { COURSE_DETAIL } from '../../config/path'
 
-function CourseItem({id,image,name,description,avatar,user, slug}) {
+function CourseItem({id,image,name,description,avatar,user,slug}) {
     const path = generatePath(COURSE_DETAIL, {slug, id})
     return (
         <div className="col-md-4 course">

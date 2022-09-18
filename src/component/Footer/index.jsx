@@ -1,21 +1,9 @@
 import React, { useContext,useState } from 'react'
-import {MainContext} from '../../context/MainContext'
 
 function Footer() {
-    const {setData, data}  = useContext(MainContext)
-    console.log(data.status)
-
-    const handleClick =() => {
-        setData(data => { return {...data, status : true}})
-        console.log(data.status)
-    }
-    const handleChange = (e) => {
-        setData(data => { return {...data, name: e.target.value}})
-    }
+    
   return (
     <footer id="footer">
-        <button onClick={handleClick}>LOGIN</button>
-        <input value={data.name} onChange={handleChange} />
         <div className="container">
             <div className="row">
             <div className="col-md-5 left">

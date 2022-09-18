@@ -1,5 +1,6 @@
 import React from 'react'
 import CourseItem from '../component/Course'
+import Loading from '../component/Loading'
 import useQuery from '../hooks/useQuery'
 import courseService from '../services/courseService'
 
@@ -21,9 +22,7 @@ function Course() {
                     </div>
                     <div className="list row">
                         {loading ?
-                            <div style={{ width: '100%', paddingTop: 50 }}>
-                                <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Đang tải dữ liệu...</p>
-                            </div> :
+                            <Loading /> :
                             data.map(item => (
                                 <CourseItem
                                     key={item.id}
@@ -32,6 +31,8 @@ function Course() {
                                     description={item.short_description}
                                     avatar={item.teacher.avatar}
                                     user={item.teacher.title}
+                                    id={item.id}
+                                    slug={item.slug}
                                 />
                             ))}
                     </div>

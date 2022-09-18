@@ -1,7 +1,10 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import Accordition from '../component/Accordition'
 import CourseItem from '../component/Course'
+import Loading from '../component/Loading'
 import Page404 from '../component/Page404'
+import usePageChangeOnTop from '../hooks/usePageChangeOnTop'
 import useQuery from '../hooks/useQuery'
 import courseService from '../services/courseService'
 
@@ -11,11 +14,11 @@ function CourseDetail() {
     console.log(id)
 
     const { data, loading } = useQuery(() => courseService.getDetail(id), [id])
-    const { data: courses } = useQuery(() => courseService.getList(), [])
-
-    if (loading) return <div style={{ width: '100%', paddingTop: 50 }}>
-        <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Đang tải dữ liệu...</p>
-    </div>
+    const { data: courses, loading: loadingCourse } = useQuery(() => courseService.getList(), [])
+    const { data: accordition } = useQuery(() => courseService.getDetail(id), [])
+    
+    usePageChangeOnTop([id])
+    if (loading) return <Loading />
 
     if (!data) return <Page404 />
 
@@ -24,8 +27,7 @@ function CourseDetail() {
             <section className="banner style2">
                 <div className="container">
                     <div className="info">
-                        <h1>Thực Chiến
-                            front-end căn bản</h1>
+                        <h1>{data.title}</h1>
                         <div className="row">
                             <div className="date"><strong>Khai giảng:</strong> 12/10/2020</div>
                             <div className="time"><strong>Thời lượng:</strong> 18 buổi</div>
@@ -54,66 +56,9 @@ function CourseDetail() {
                         <img src="img/course-detail-img.png" alt="" />
                     </div>
                     <h3 className="title">nội dung khóa học</h3>
-                    <div className="accordion">
-                        <div className="accordion__title">
-                            <div className="date">Ngày 1</div>
-                            <h3>Giới thiệu HTML, SEO, BEM.</h3>
-                        </div>
-                        <div className="content">
-                            I'd like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers
-                            some tangible benefits over alternatives like VueJS for simple page interactions.
-                        </div>
-                    </div>
-                    <div className="accordion">
-                        <div className="accordion__title">
-                            <div className="date">Ngày 2</div>
-                            <h3>CSS, CSS3, Flexbox, Grid</h3>
-                        </div>
-                        <div className="content">
-                            I'd like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers
-                            some tangible benefits over alternatives like VueJS for simple page interactions.
-                        </div>
-                    </div>
-                    <div className="accordion">
-                        <div className="accordion__title">
-                            <div className="date">Ngày 3</div>
-                            <h3>Media Queries</h3>
-                        </div>
-                        <div className="content">
-                            I'd like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers
-                            some tangible benefits over alternatives like VueJS for simple page interactions.
-                        </div>
-                    </div>
-                    <div className="accordion">
-                        <div className="accordion__title">
-                            <div className="date">Ngày 4</div>
-                            <h3>Boostrap 4</h3>
-                        </div>
-                        <div className="content">
-                            I'd like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers
-                            some tangible benefits over alternatives like VueJS for simple page interactions.
-                        </div>
-                    </div>
-                    <div className="accordion">
-                        <div className="accordion__title">
-                            <div className="date">Ngày 5</div>
-                            <h3>Thực hành dự án website Landing Page</h3>
-                        </div>
-                        <div className="content">
-                            I'd like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers
-                            some tangible benefits over alternatives like VueJS for simple page interactions.
-                        </div>
-                    </div>
-                    <div className="accordion">
-                        <div className="accordion__title">
-                            <div className="date">Ngày 6</div>
-                            <h3>Cài đặt Grunt và cấu trúc thư mục dự án</h3>
-                        </div>
-                        <div className="content">
-                            I'd like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers
-                            some tangible benefits over alternatives like VueJS for simple page interactions.
-                        </div>
-                    </div>
+                    {
+                        accordition?.content.map((e,i) => <Accordition key={i} title={e.title} date={i + 1}>{e.content}</Accordition>)
+                    }
                     <h3 className="title">yêu cầu cần có</h3>
                     <div className="row row-check">
                         <div className="col-md-6">Đã từng học qua HTML, CSS</div>
@@ -260,8 +205,8 @@ function CourseDetail() {
                         <h2 className="main-title">Liên quan</h2>
                     </div>
                     <div className="list row">
-                        {
-                            courses.slice(0,3).map(item => (
+                        {loadingCourse ? <Loading /> :
+                            courses.slice(0, 3).map(item => (
                                 <CourseItem
                                     key={item.id}
                                     image={item.thumbnailUrl}

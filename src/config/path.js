@@ -1,7 +1,2 @@
-export const COURSE_DETAIL = 'khoa-hoc/:slug-p:id'
-
-const path = {
-    COURSE_DETAIL
-}
-
-export default path
+export const COURSE_DETAIL = '/khoa-hoc/:slug-p:id'
+export const PROFILE_PATH = '/ca-nhan'

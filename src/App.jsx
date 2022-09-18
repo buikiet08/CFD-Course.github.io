@@ -13,12 +13,12 @@ import ProfileLayout from './layout/ProfileLayout'
 import CourseDetail from './Pages/[slug]'
 
 import { COURSE_DETAIL } from './config/path'
-import MainProvider from './context/MainContext'
+import AuthProvider from './context/AuthContext'
 
 function App() {
   return (
     <>
-      <MainProvider>
+      <AuthProvider>
         <Routes>
           <Route element={<MainLayout />}>
             <Route index element={<Home />} />
@@ -35,7 +35,7 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </MainProvider>
+      </AuthProvider>
     </>
   )
 }

@@ -1,10 +1,15 @@
 import React, { useContext, useState } from 'react'
-import { MainContext } from '../../context/MainContext'
+import { Link } from 'react-router-dom'
+import { PROFILE_PATH } from '../../config/path'
+import { useAuth } from '../../context/AuthContext'
+import { usePage } from '../../hooks/usePage'
 
 function Header() {
-    const {data, setData} = useContext(MainContext)
-    const handleClick = (e) => {
-        setData(data => { return {...data, status: false}; })
+    const {user,onLogout} = useAuth()
+    const {setIsOpenModal} = usePage()
+    const handleLogin = (e) => {
+        e.preventDefault()
+        setIsOpenModal(true)
     }
     return (
         <>
@@ -23,13 +28,13 @@ function Header() {
                         <h1>CFD</h1>
                     </a>
                     <div className="right">
-                        {data.status ? (
+                        {user ? (
                             <div className="have-login">
                                 <div className="account">
                                     <a href="#" className="info">
-                                        <div className="name">{data.name}</div>
+                                        <div className="name">{user.name}</div>
                                         <div className="avatar">
-                                            <img src="img/avt.png" alt="" />
+                                            <img src={user.avatar} alt="" />
                                         </div>
                                     </a>
                                 </div>
@@ -37,13 +42,13 @@ function Header() {
                                 </div>
                                 <div className="sub">
                                     <a href="#">Khóa học của tôi</a>
-                                    <a href="#">Thông tin tài khoản</a>
-                                    <a href="#" onClick={handleClick}>Đăng xuất</a>
+                                    <Link to={PROFILE_PATH}>Thông tin tài khoản</Link>
+                                    <a href="#" onClick={onLogout}>Đăng xuất</a>
                                 </div>
                             </div>
                         ) : (
                             <div class="not-login bg-none">
-                                <a href="#" class="btn-register">Đăng nhập</a>
+                                <a href="#" class="btn-register" onClick={handleLogin}>Đăng nhập</a>
                                 <a href="login.html" class="btn main btn-open-login">Đăng ký</a>
                             </div>
                         )}
