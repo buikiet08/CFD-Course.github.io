@@ -10,13 +10,8 @@ import courseService from '../services/courseService'
 
 function CourseDetail() {
     const { slug, id } = useParams()
-
-    console.log(id)
-
     const { data, loading } = useQuery(() => courseService.getDetail(id), [id])
     const { data: courses, loading: loadingCourse } = useQuery(() => courseService.getList(), [])
-    const { data: accordition } = useQuery(() => courseService.getDetail(id), [])
-    
     usePageChangeOnTop([id])
     if (loading) return <Loading />
 
@@ -57,7 +52,7 @@ function CourseDetail() {
                     </div>
                     <h3 className="title">nội dung khóa học</h3>
                     {
-                        accordition?.content.map((e,i) => <Accordition key={i} title={e.title} date={i + 1}>{e.content}</Accordition>)
+                        data?.content.map((e,i) => <Accordition key={i} title={e.title} date={i + 1}>{e.content}</Accordition>)
                     }
                     <h3 className="title">yêu cầu cần có</h3>
                     <div className="row row-check">

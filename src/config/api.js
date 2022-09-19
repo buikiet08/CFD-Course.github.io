@@ -5,5 +5,7 @@ const Api = axios.create({
 
 Api.interceptors.response.use((res) => {
     return res.data
+}, (res) => {
+    throw res.response.data
 })
 export default Api
