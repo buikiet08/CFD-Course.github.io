@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { COURSE, HOME, PROFILE_PATH } from '../../config/path'
 import { useAuth } from '../../context/AuthContext'
 import { usePage } from '../../hooks/usePage'
+import { store } from '../../stores'
 
 function Header() {
     const [openMenu, setOpenMenu] = useState(false)
@@ -12,9 +14,33 @@ function Header() {
         e.preventDefault()
         setIsOpenModal(true)
     }
+
+    const state = useSelector(store => store)
+    const dispatch = useDispatch()
+    console.log(state)
+    const onIncrease = () => {
+        dispatch({type: 'incremented',})
+    }
+    const onDecremented = () => {
+        dispatch({type: 'decremented',})
+    }
+    const onIncremented5 = () => {
+        dispatch({type: 'incremented5', payload:5})
+    }
     return (
         <>
             <header id="header">
+                <p>{state.count}</p>
+                <button onClick={onIncrease}>increase</button>
+                <button onClick={onDecremented}>decremented</button>
+                <button onClick={onIncremented5}>X5</button>
+                <button onClick={() => dispatch({type: 'incremented5', payload:10})}>X10</button>
+                <button onClick={() => dispatch({type: 'incremented5', payload:100})}>X100</button>
+                <button onClick={() => dispatch({type: 'login', payload:true})}>LOGIN</button>
+                <button onClick={() => dispatch({type: 'logout', payload:false})}>LOGOUT</button>
+
+
+
                 <div className="wrap">
                     <div className="menu-hambeger" onClick={() => setOpenMenu(!openMenu)}>
                         <div className="button">

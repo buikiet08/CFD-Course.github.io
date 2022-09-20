@@ -14,10 +14,13 @@ import CourseDetail from './Pages/[slug]'
 
 import { COURSE_DETAIL } from './config/path'
 import AuthProvider from './context/AuthContext'
+// redux
+import { Provider } from 'react-redux'
+import { store } from './stores'
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <AuthProvider>
         <Routes>
           <Route element={<MainLayout />}>
@@ -36,7 +39,7 @@ function App() {
           </Route>
         </Routes>
       </AuthProvider>
-    </>
+    </Provider>
   )
 }
 
