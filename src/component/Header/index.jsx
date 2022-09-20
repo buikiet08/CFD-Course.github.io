@@ -1,20 +1,25 @@
 import React, { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { COURSE, HOME, PROFILE_PATH } from '../../config/path'
-import { useAuth } from '../../context/AuthContext'
 import { usePage } from '../../hooks/usePage'
-import { store } from '../../stores'
 
 function Header() {
+    const navigate = useNavigate()
     const [openMenu, setOpenMenu] = useState(false)
-    const { user, onLogout } = useAuth()
-    const { setIsOpenModal } = usePage()
+    const { setIsOpenModal,user,setUser } = usePage()
     const handleLogin = (e) => {
         e.preventDefault()
         setIsOpenModal(true)
     }
+    const onLogout = () => {
+        localStorage.removeItem('user')
+        localStorage.removeItem('token')
+        setUser(null)
+        navigate('/')
+    }
 
+    // redux
     const state = useSelector(store => store)
     const dispatch = useDispatch()
     console.log(state)

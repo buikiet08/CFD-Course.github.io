@@ -8,7 +8,6 @@ import userService from '../../services/userService'
 
 function LoginModal() {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const {onLogin} = useAuth()
     const {isOpenModal,setIsOpenModal,setUser} = usePage()
     const [form,setForm] = useState({})
     const [isFetching,setIsFetching] = useState(false)
@@ -22,6 +21,7 @@ function LoginModal() {
                 localStorage.setItem('token', JSON.stringify(result.data))
                 const user = await userService.getInfo()
                 if(user.data) {
+                    localStorage.setItem('user', JSON.stringify(user.data))
                     setUser(user.data)
                     setIsOpenModal(false)
                     setErrorMessage('')
