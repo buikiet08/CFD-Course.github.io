@@ -20,11 +20,12 @@ function LoginModal() {
             const result = await loginService.login(form)
             if(result.data) {
                 localStorage.setItem('token', JSON.stringify(result.data))
-                const user = userService.getInfo()
+                const user = await userService.getInfo()
                 if(user.data) {
                     setUser(user.data)
                     setIsOpenModal(false)
                     setErrorMessage('')
+                    console.log('vào')
                 }
             }
         }

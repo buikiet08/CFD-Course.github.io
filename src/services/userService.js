@@ -5,12 +5,12 @@ const userService = {
         return Api.post('/user/update', { data })
     },
     getInfo() {
-        const token = localStorage.getItem('token');
+        let token = localStorage.getItem('token');
         if (token) {
             token = JSON.parse(token)
             return Api.get('/user/get-info', {
                 headers: {
-                    Authrization: `Bearer ${token}`
+                    Authorization: `Bearer ${token.accessToken}`
                 }
             })
         }
