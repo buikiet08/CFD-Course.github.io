@@ -7,17 +7,24 @@ import { usePage } from '../../hooks/usePage'
 function Header() {
     const navigate = useNavigate()
     const [openMenu, setOpenMenu] = useState(false)
-    const { setIsOpenModal,user,setUser } = usePage()
+    const { setIsPopup,setIsOpenModal,user,setUser } = usePage()
     const handleLogin = (e) => {
         e.preventDefault()
         setIsOpenModal(true)
     }
+
+    const handleRegister = (e) => {
+        e.preventDefault()
+        setIsPopup(true)
+    }
+
     const onLogout = () => {
         localStorage.removeItem('user')
         localStorage.removeItem('token')
         setUser(null)
         navigate('/')
     }
+
 
     // redux
     const state = useSelector(store => store)
@@ -35,14 +42,14 @@ function Header() {
     return (
         <>
             <header id="header">
-                <p>{state.count}</p>
+                {/* <p>{state.count}</p>
                 <button onClick={onIncrease}>increase</button>
                 <button onClick={onDecremented}>decremented</button>
                 <button onClick={onIncremented5}>X5</button>
                 <button onClick={() => dispatch({type: 'incremented5', payload:10})}>X10</button>
                 <button onClick={() => dispatch({type: 'incremented5', payload:100})}>X100</button>
                 <button onClick={() => dispatch({type: 'login', payload:true})}>LOGIN</button>
-                <button onClick={() => dispatch({type: 'logout', payload:false})}>LOGOUT</button>
+                <button onClick={() => dispatch({type: 'logout', payload:false})}>LOGOUT</button> */}
 
 
 
@@ -83,14 +90,14 @@ function Header() {
                         ) : (
                             <div className="not-login bg-none">
                                 <a href="javascript:void" className="btn-register" onClick={handleLogin}>Đăng nhập</a>
-                                <a href="login.html" className="btn main btn-open-login">Đăng ký</a>
+                                <a href="login.html" className="btn main btn-open-login" onClick={handleRegister}>Đăng ký</a>
                             </div>
                         )}
 
                     </div>
                 </div>
             </header>
-            <nav className="nav" style={{ transform: `translateX(${openMenu ? '0' : '-100%'})`, position: 'fixed', top: 70, boxShadow: '2px 0 4px rgba(0,0,0,0.1)' }}>
+            <nav className="nav" style={{ transform: `translateX(${openMenu ? '0' : '-100%'})`, position: 'fixed', top: 60, boxShadow: '2px 0 4px rgba(0,0,0,0.1)' }}>
                 <ul>
                     <li className="li_login">
                         <a href="javascript:void">Đăng nhập</a>

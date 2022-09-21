@@ -1,10 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import userService from "../services/userService";
 
 const Context = createContext({})
 
 export const PageProvider = ({children}) => {
     const [isOpenModal,setIsOpenModal] = useState(false)
+    const [isPopup,setIsPopup] = useState(false)
     const [user,setUser] = useState(() => {
         const user = localStorage.getItem('user')
         if(user) return JSON.parse(user)
@@ -21,7 +22,7 @@ export const PageProvider = ({children}) => {
             }
         })
     }, [])
-    return <Context.Provider value={{isOpenModal,setIsOpenModal,user,setUser}}>
+    return <Context.Provider value={{isOpenModal,setIsOpenModal,isPopup,setIsPopup,user,setUser}}>
         {children}
     </Context.Provider>
 }
