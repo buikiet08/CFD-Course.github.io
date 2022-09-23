@@ -9,7 +9,7 @@ export const PageProvider = ({children}) => {
     const [user,setUser] = useState(() => {
         const user = localStorage.getItem('user')
         if(user) return JSON.parse(user)
-        return false
+        return null
     })
     // thay doi du lieu may nay thi may khac cung dc cap nhat
     useEffect(() => {
