@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { storage } from '../firabase'
+import { ref, uploadBytes } from 'firebase/storage'
 import { usePage } from '../hooks/usePage'
+import { v4 } from 'uuid'
 
 function ProfileLayout() {
     const {user} = usePage()
+    const [imageUpload,setImageUpload] = useState(null)
+    const uploadImage = () => {
+        if(imageUpload === null) return
+        const imageRef = ref(storage, `/images/${imageUpload.name }`)
+        uploadBytes(imageRef, uploadImage).then(() => {
+            alert('Upload hình ảnh thành công')
+        })
+    }
     return (
         <main className="profile" id="main">
             <section>
@@ -13,6 +24,8 @@ function ProfileLayout() {
                         <img src={user.avatar} alt="" />
                         <div className="camera" />
                     </div>
+                    <input type='file' onChange={e => {setImageUpload(e.target.files[0])}} />
+                    <button onClick={uploadImage}>Upload image</button>
                     <div className="name">{user.name}</div>
                     <p className="des">Thành viên của team CFD1-OFFLINE</p>
                 </div>

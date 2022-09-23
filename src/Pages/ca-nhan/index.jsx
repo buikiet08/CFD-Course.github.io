@@ -1,23 +1,26 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { usePage } from '../../hooks/usePage'
+import userService from '../../services/userService';
 
 function Profile() {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [data, setData] = useState({})
-    const { user } = usePage()
+    const [form, setForm] = useState({})
+    const { user,setUser } = usePage()
     const [isFetching, setIsFetching] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
-    const onSubmit = async () => {
+    const onSubmit = async (data) => {
         setIsFetching(true)
         try {
             const updateInfo = await userService.updateInfo(data)
-            if (updateInfo.data) {
-                localStorage.setItem('token', JSON.stringify(updateInfo.data))
-                localStorage.setItem('user', JSON.stringify(updateInfo.data))
+            console.log(updateInfo)
+            if (updateInfo) {
+                const user = await userService.getInfo()
+                localStorage.getItem('user', JSON.stringify(user.data))
+                setUser(user.data)
             }
         }
-        catch(error) {
+        catch (error) {
             setErrorMessage(error.message)
         }
         finally {
@@ -30,11 +33,11 @@ function Profile() {
         <form className="tab1" onSubmit={handleSubmit(onSubmit)}>
             <label>
                 <p>Họ và tên<span>*</span></p>
-                <input onChange={(e) => data.name = e.target.value} type="text" placeholder={user.name} />
+                <input onChange={(e) => form.name = e.target.value} name='name' defaultValue={user.name} type="text" placeholder={user.name} {...register('name', { required: true })} />
             </label>
             <label>
                 <p>Số điện thoại<span>*</span></p>
-                <input type="text" onChange={(e) => data.phone = e.target.value} placeholder="0949******" />
+                <input type="text" onChange={(e) => form.phone = e.target.value} name='phone' defaultValue={user.phone} placeholder="0949******" {...register('phone', { required: true })} />
             </label>
             <label>
                 <p>Email<span>*</span></p>
@@ -48,7 +51,7 @@ function Profile() {
                 <p>Skype<span>*</span></p>
                 <input type="text" placeholder="Skype url" />
             </label>
-            <button style={{ border: 'none', outline: 'none' }} className="btn main rect">LƯU LẠI</button>
+            <button disabled={isFetching ? true : false} style={{ border: 'none', outline: 'none' }} className="btn main rect">LƯU LẠI</button>
         </form>
     )
 }
