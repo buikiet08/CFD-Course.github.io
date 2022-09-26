@@ -65,9 +65,9 @@ function LoginModal() {
                         </div>
                         <button className="btn rect main btn-login" style={{border:'none', outline:'none'}}>đăng nhập</button>
                     </form>
-                    <div className="close" onClick={() => setIsOpenModal(false)}>
+                    <button className="close" style={{border:'none', outline:'none'}} onClick={() => setIsOpenModal(false)} disabled={isFetching ? true : false}>
                         <img src="img/close-icon.png" alt="" />
-                    </div>
+                    </button>
 
                 </div>
             </div>,
